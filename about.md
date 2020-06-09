@@ -21,11 +21,9 @@ Hi. My name is Daeyoung Han, a Ph.D candidate student at the [School of Electric
 **TBD**
 
 # Contacts
-- **Address**  
-  - Machine Learning and Vision Lab,  
+- Machine Learning and Vision Lab,  
     Room 302, EECS Building C,  
     Gwangju Institute of Science and Technology (GIST),  
     123, Cheomdangwagi-ro, Buk-gu, Gwangju, Korea
-
-- **Email**
-  - [xesta120@gist.ac.kr](mailto:xesta120@gist.ac.kr)
+    
+- [xesta120@gist.ac.kr](mailto:xesta120@gist.ac.kr)
