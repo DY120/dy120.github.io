@@ -5,7 +5,7 @@ url: "https://dy120.github.io/"
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
   # Meta
-  title: 120의 개발일지
+  title: 120의 연구일지
   avatar: assets/img/avatar.png
   favicon: assets/favicon.ico
   gravatar: # Email MD5 hash
