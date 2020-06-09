@@ -11,9 +11,9 @@ Hi. My name is Daeyoung Han, a Ph.D candidate student at the [School of Electric
 - **Machine Learning**
 
 # Educations
-- **B.S.** at the [School of Electrical & Electorinc Engineering](http://ee.yonsei.ac.kr/ee_en/index.do), [Yonsei University](https://www.yonsei.ac.kr/en_sc/), Seoul, Korea\
+- **B.S.** at the [School of Electrical & Electorinc Engineering](http://ee.yonsei.ac.kr/ee_en/index.do), [Yonsei University](https://www.yonsei.ac.kr/en_sc/), Seoul, Korea <br>
 (Mar.2013-Aug.2019)
-- **Ph.D candidate** at the [School of Electrical Engineering and Computer Science](https://eecs.gist.ac.kr/eecs/), [Gwangju Institute of Science and Technology](https://www.gist.ac.kr/kr/main.html), Gwangju, Korea\
+- **Ph.D candidate** at the [School of Electrical Engineering and Computer Science](https://eecs.gist.ac.kr/eecs/), [Gwangju Institute of Science and Technology](https://www.gist.ac.kr/kr/main.html), Gwangju, Korea <br>
 (Sep.2019-present)
 
 # Publications
