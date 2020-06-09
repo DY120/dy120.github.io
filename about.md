@@ -4,8 +4,28 @@ title: About
 permalink: /about/
 ---
 
-Type Theme is a free and open-source theme for [Jekyll](http://jekyllrb.com/), licensed under the MIT License.
+Hi. My name is Daeyoung Han, a Ph.D candidate student at the [School of Electrical Engineering and Computer Science](https://eecs.gist.ac.kr/eecs/), [GIST](https://www.gist.ac.kr/kr/main.html). I'm studying Computer Vision and Machine Learning at [Machine Learning and Vision Lab](https://sites.google.com/view/mlv/), under the supervision of Prof. [Moongu Jeon](https://sites.google.com/view/mlv/people/professor).
 
-Head over to the [theme's documentation](https://rohanchandra.github.io/project/type/) for much more information about Type Theme or to install this theme on your own Jekyll site.
+# Research Interests
+- **Computer Vision**
+- **Machine Learning**
 
-This file is an example of a page in Jekyll, that automatically shows up in the header navigation, you can delete or modify this file freely.
+# Educations
+- **B.S.** at the [School of Electrical & Electorinc Engineering](http://ee.yonsei.ac.kr/ee_en/index.do), [Yonsei University](https://www.yonsei.ac.kr/en_sc/), Seoul, Korea (Mar.2013-Aug.2019)
+- **Ph.D candidate** at the [School of Electrical Engineering and Computer Science](https://eecs.gist.ac.kr/eecs/), [Gwangju Institute of Science and Technology](https://www.gist.ac.kr/kr/main.html), Gwangju, Korea (Sep.2019-present)
+
+# Publications
+**TBD**
+
+# Patents
+**TBD**
+
+# Contacts
+- **Address**  
+Machine Learning and Vision Lab,  
+Room 302, EECS Building C,  
+Gwangju Institute of Science and Technology (GIST),  
+123, Cheomdangwagi-ro, Buk-gu, Gwangju, Korea
+
+- **Email**  
+[xesta120@gist.ac.kr](mailto:xesta120@gist.ac.kr)
