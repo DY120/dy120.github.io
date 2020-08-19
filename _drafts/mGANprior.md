@@ -55,7 +55,7 @@ $$G\left(\sum_{n=1}^N z_n\right) = \sum_{n=1}^N x_n$$
 
 &nbsp;&nbsp;&nbsp;&nbsp;최근 연구를 통해 GAN inversion에서 latent code 자체를 분석하는 것보다 generator의 중간 layer에서 feature를 분석하는 것이 더 효과적이라는 것이 알려졌습니다. 이를 채용하여 저자들은 입력으로 들어오는 latent code가 아니라 generator 네트워크에서의 intermediate feature map들을 합치는 방식을 채용하기로 했습니다. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;먼저 $$G(\cdot)$$을 두 개의 sub-network $$G_1^{(\ell)}(\cdot)$$과 $$G_2^{(\ell)}(\cdot)$$으로 나누어야 합니다. 이를 이용하여 generator의 $$\ell$$번째 layer의 feature map을 다음과 같이 정의할 수 있습니다.
+&nbsp;&nbsp;&nbsp;&nbsp;먼저 $$G(\cdot)$$을 두 개의 sub-network $$G_1^{(\ell)}(\cdot)$$과 $$G_2^{(\ell)}(\cdot)$$으로 나누어야 합니다. Generator의 $$\ell$$번째까지의 layer들로 이루어진 $$G_1^{(\ell)}(\cdot)$$을 이용해 $$\ell$$번째 layer의 feature map을 다음과 같이 정의할 수 있습니다.
 
 $$F_n^{(\ell)} = G_1^{(\ell)}(z_n)$$
 
