@@ -5,13 +5,30 @@ tags: [Paper Review, GAN, Generative Model]
 comments: true
 ---
 
-&nbsp;&nbsp;&nbsp;&nbsp;GAN(Generative Adversarial Networks)은 2014년에 발표된 이후 지금까지 많은 연구를 통해 눈부신 발전을 이루었습니다. 특히 무작위로 생성된 latent code로부터 가상의 이미지를 합성해내는 생성 모델 분야에 큰 영향을 끼쳤는데, 2020년 현재에 이르러서는 BigGAN이나 StyleGAN과 같은 모델을 통해 만들어진 고해상도의 이미지들은 심지어 사람의 눈으로도 가짜라는 걸 분간할 수 없을 만큼 고도화가 이루어졌습니다.
+<center>
+    <figure>
+        <img src="https://miro.medium.com/max/1234/1*Yw2KxjmIkj8yqS-ykLCQCQ.png" width="900px">
+    </figure>
+</center>
+<BR>
+
+&nbsp;&nbsp;&nbsp;&nbsp;GAN(Generative Adversarial Networks)은 2014년에 발표된 이후 지금까지 많은 연구를 통해 눈부신 발전을 이루었습니다. 특히 무작위로 생성된 latent code로부터 가상의 이미지를 합성해내는 생성 모델 분야에 큰 영향을 끼쳤는데, 2020년 현재에 이르러서는 BigGAN이나 PGGAN, StyleGAN과 같은 모델을 통해 만들어진 고해상도의 이미지들은 심지어 사람의 눈으로도 가짜라는 걸 분간할 수 없을 만큼 고도화가 이루어졌습니다. 위의 사진은 BigGAN을 통해 생성된 $$512 \times 512$$ 크기의 가짜 이미지들인데, 이를 첫눈에 분간할 수 있는 사람은 많지 않을 것입니다.
+
+<center>
+    <img src="../assets/img/mGANprior-1.png">
+</center>
+<BR>
 
 &nbsp;&nbsp;&nbsp;&nbsp;GAN은 이와 같은 강력한 이미지 생성 능력을 기반으로 SISR(Single Image Super-Resolution), denoising, inpainting와 같은 여러 이미지 처리 분야에도 널리 쓰이고 있습니다. 하지만 대부분의 GAN을 이용한 이미지 처리 모델들은 해당 task에만 특화된 loss function과 네트워크 구조를 이용한다는 한계점이 있습니다. 물론 많은 task에 활용될 수 있는 pix2pix나 CycleGAN과 같은 image-to-image translation 모델들이 있긴 하지만, 이러한 모델들 역시 adversarial learning의 개념만 추가한 지도 학습을 진행한다는 한계가 있습니다. 다시 말해 GAN의 향만 첨가한 정도라는 것입니다. 그래서 image-to-image translation 모델들이 만드는 결과는 생성 모델이 만들어 내는 가상의 이미지만큼 높은 퀄리티를 가지지 못한다는 단점이 있습니다.
 
 &nbsp;&nbsp;&nbsp;&nbsp;이러한 한계점을 극복하고자 최근에는 미리 학습된 BigGAN이나 StyleGAN과 같은 생성 모델을 이용해 GAN의 강력한 이미지 생성 능력을 활용함과 동시에 별도의 학습 또한 필요로 하지 않는 장점을 취하는 방법론을 주로 채용하는 추세입니다. [이전 포스트](https://dy120.github.io/PULSE)에서 살펴본 PULSE라는 모델 또한 이러한 아이디어를 채용하여 개발된 모델이라고 볼 수 있습니다. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;간단하게 설명하자면, 원하는 이미지 처리 결과를 미리 학습된 생성 모델이 만들어 낼 수 있는 이미지의 범위, 즉 latent space 내에서 직접 찾아낸다는 것입니다. 예를 들어서 PULSE는 생성 모델이 만들어낼 수 있는 수없이 많은 얼굴 이미지들 중에서 downscaling을 해서 기존의 입력 이미지가 될 수 있는 이미지들을 back-propagation을 통한 latent code의 최적화를 통해 찾아냄으로써 face hallucination(얼굴에 대한 SISR)을 수행하게 됩니다.
+<center>
+    <img src="../assets/img/PULSE-3.png">
+</center>
+<BR>
+
+&nbsp;&nbsp;&nbsp;&nbsp;원리를 간단하게 설명하자면, 원하는 이미지 처리 결과를 미리 학습된 생성 모델이 만들어 낼 수 있는 이미지의 범위, 즉 latent space 내에서 직접 찾아낸다는 것입니다. 예를 들어서 PULSE는 생성 모델이 만들어낼 수 있는 수없이 많은 얼굴 이미지들 중에서 downscaling을 해서 기존의 입력 이미지가 될 수 있는 이미지들을 back-propagation을 통한 latent code의 최적화를 통해 찾아냄으로써 face hallucination(얼굴에 대한 SISR)을 수행하게 됩니다.
 
 <!---
  PULSE는 입력된 저화질 이미지 $$I_{LR}$$과 downscaling 된 고화질 이미지 $$DS(G(z))$$ 사이의 pixel-wise loss $$\lVert DS(G(z)) - I_{LR} \rVert_p^p$$를 최소화시키는 latent code $$z$$를 back-propagation을 통해 얻어내 SISR을 수행하는 모델이었습니다. 
@@ -23,13 +40,18 @@ comments: true
 
 # Introduction
 
+<center>
+    <img src="https://pbs.twimg.com/media/EUmwAXnUYAAeV3B.png" width="500px">
+</center>
+<BR>
+
 &nbsp;&nbsp;&nbsp;&nbsp;우선 미리 학습된 생성 모델을 통해 이미지 처리 모델을 구현하려면 한 가지 추가적인 핵심적인 기술을 필요로 합니다. 바로 GAN inversion이라 불리는 기술입니다. 기존의 생성 모델에서 generator $$G$$가 무작위로 생성된 latent code $$z$$를 입력으로 받아 가상의 이미지 $$G(z)$$를 생성해 출력했다면, GAN inversion은 실제 이미지 $$x$$와 특정 reconstruction loss $$\mathcal{L}(\cdot)$$에 대해 다음 조건을 만족하는 latent code $$z^*$$를 출력합니다. 
 
 $$z^* = \arg\min_{z \in \mathcal{Z}} \mathcal{L}(G(z), x)$$
 
-만약 $$\mathcal{L}(\cdot)$$을 단순한 pixel-wise loss라고 생각한다면 이 식을 푸는 것은 $$G$$에 입력됐을 때 $$x$$와 동일한 이미지가 나오는 latent code를 찾는 문제가 됩니다. 이름 그대로 이미지를 입력으로 받아 해당하는 latent code를 출력하는 GAN의 역변환이라고 볼 수 있을 것입니다.
+만약 $$\mathcal{L}(\cdot)$$을 단순한 pixel-wise loss라고 생각한다면 이 식을 푸는 것은 $$G$$에 입력됐을 때 $$x$$와 동일한 이미지가 나오는 latent code를 찾는 문제가 됩니다. 이름 그대로 이미지를 입력으로 받아 해당하는 latent code를 출력하는 GAN의 역변환이라고 볼 수 있는 것입니다. 이 과정이 제대로 이루어졌다면 역변환된 latent code를 생성 모델에 입력했을 때 원래의 이미지가 제대로 나와야 할 것입니다.
 
-&nbsp;&nbsp;&nbsp;&nbsp;여기서 주어진 문제가 어떤 종류의 이미지 처리에 대한 것인지에 따라 loss function을 다르게 정의할 수 있습니다. 예를 들어, 흑백 이미지를 컬러 이미지로 변환하는 image colorization 문제라면 다음과 같이 이미지의 휘도에 해당하는 채널(YCbCr 컬러 공간에서 Y 채널)만을 취해 흑백 이미지를 만드는 전처리 함수 $$\texttt{gray}(\cdot)$$를 써서 loss function을 새로 정의할 수 있습니다.
+&nbsp;&nbsp;&nbsp;&nbsp;여기서 reconstruction loss를 다르게 정의함으로써 여러 가지 이미지 처리 문제에 적용시킬 수 있습니다. 예를 들어, 흑백 이미지를 컬러 이미지로 변환하는 image colorization 문제라면 다음과 같이 이미지의 휘도에 해당하는 채널(YCbCr 컬러 공간에서 Y 채널)만을 취해 흑백 이미지를 만드는 전처리 함수 $$\texttt{gray}(\cdot)$$를 써서 loss function을 새로 정의할 수 있습니다.
 
 $$\mathcal{L}_{color} = \mathcal{L}(\texttt{gray}(G(z)), I_{gray})$$
 
@@ -37,13 +59,17 @@ $$\mathcal{L}_{color} = \mathcal{L}(\texttt{gray}(G(z)), I_{gray})$$
 
 &nbsp;&nbsp;&nbsp;&nbsp;이러한 방식으로 생성 모델을 이미지 처리에 활용하려는 연구가 여럿 있었지만, 앞서 설명했듯 좋은 성과를 내지는 못했습니다. 이 논문의 저자들은 그 이유를 기존 연구들이 단일 latent code만을 최적화하려고 했기 때문이라고 분석했습니다. 더 정확히 말하자면, 단일 latent code만을 다루게 되면 생성 모델의 latent space에 정답이 되는 이미지가 포함이 되지 않을 때 해당 이미지에 대한 완벽한 inversion이 존재하지 않게 되므로 정답을 아예 찾을 수 없는 것입니다.
 
-&nbsp;&nbsp;&nbsp;&nbsp;이 논문은 여러 개의 latent code를 이용한 GA
-N inversion 방법을 제시하면서 다음과 같은 contribution을 가지고 있다고 주장합니다.
+&nbsp;&nbsp;&nbsp;&nbsp;이 논문은 여러 개의 latent code를 이용한 새로운 GAN inversion을 제시하면서 다음과 같은 contribution을 가지고 있다고 주장합니다.
 - 여러 개의 latent code와 adaptive channel importance를 활용한 새로운 GAN inversion 방법인 mGANprior(multi-code GAN prior)를 제시함
 - mGANprior를 image colorization, SISR, image inpainting 등 다양한 실제 이미지 처리 문제에 적용시킴
 - GAN generator의 각 layer에 있는 feature들을 결합하여 각각 다른 layer에서의 internal representation을 분석하는 방법을 제시함
 
 # Method
+
+<center>
+    <img src="../assets/img/mGANprior-2.png">
+</center>
+<BR>
 
 &nbsp;&nbsp;&nbsp;&nbsp;mGANprior는 그 이름에 걸맞게 여러 개의 latent code $$\{z_n\}^N_{n=1}$$를 사용합니다. 이 latent code들은 기본적으로 적절한 방식으로 합쳐져서 하나의 이미지를 표현할 수 있어야 합니다. 각각의 latent code들을 어떻게 정의해야 할까요?
 
@@ -75,7 +101,7 @@ $$\{ z_n^* \}_{n=1}^N,\{ \alpha_n^* \}_{n=1}^N = \argmin_{\{ z_n \}_{n=1}^N,\{ \
 
 $$\mathcal{L}(x_1, x_2) = \lVert x_1-x_2 \rVert_2^2 + \lVert \phi(x_1) - \phi(x_2) \rVert_1$$
 
-여기서 $$\phi(\cdot)$$는 미리 학습된 VGG-16에 이미지를 입력해서 얻을 수 있는 intermediate feature map을 의미합니다. 이렇게 되면 reconstruction loss는 두 이미지의 low-level에서의 거리와 high-level에서의 거리를 모두 반영하게 됩니다.
+여기서 $$\phi(\cdot)$$는 미리 학습된 VGG-16에 이미지를 입력한 뒤 4번째 block의 3번째 convolutional layer에서 얻을 수 있는 intermediate feature map을 의미합니다. 이렇게 되면 reconstruction loss는 두 이미지의 low-level에서의 거리와 high-level에서의 거리를 모두 반영하게 됩니다.
 
 &nbsp;&nbsp;&nbsp;&nbsp;이제 이 방법을 실제 이미지 처리 task에 적용해야 합니다. 본 논문에서는 image colorization, SISR, 그리고 image inpainting까지 총 세 가지의 이미지 처리 task를 다루었습니다. 각각의 task는 다음과 같은 reconstruction loss를 최적화함으로써 수행됩니다.
 
@@ -89,10 +115,20 @@ $$\mathcal{L}_{inp} = \mathcal{L} \left( x^{inv} \circ m, I_{ori} \circ m \right
 
 # Experiments
 
+<center>
+    <img src="https://media.arxiv-vanity.com/render-output/3389132/x3.png">
+</center>
+<BR>
+
 &nbsp;&nbsp;&nbsp;&nbsp;본 논문에서는 PGGAN과 StyleGAN을 이용해 mGANprior를 구현하였으며, 얼굴을 위해 CelebA-HQ와 FFHQ 데이터셋이, 교회 및 침실 등의 사진을 위해서 LSUN 데이터셋이 사용되었습니다.
 
-&nbsp;&nbsp;&nbsp;&nbsp;mGANprior를 구현하는 데 있어서 가장 중요한 요소는 바로 몇 개의 latent code를 사용할지입니다. 저자들은 실험을 통해 더 많은 latent code를 쓸 수록 계산량이 많아진다는 trade-off가 있지만, 그 수가 무한히 늘어난다고 해서 성능이 무한히 좋아지지는 않는다는 것을 보였습니다. 그들이 찾은 최적의 개수는 20개였고, 모든 실험은 이를 기준으로 진행되었습니다.
+<center>
+    <img src="../assets/img/mGANprior-3.png">
+</center>
+<BR>
 
-&nbsp;&nbsp;&nbsp;&nbsp;또한 generator에서 intermediate feature를 합칠 지점을 정하는 것도 중요한 사항입니다. 8개의 layer를 가진 PGGAN으로 실험한 결과, 더 뒤에 있는 layer를 선택할수록 더 좋은 결과가 나온다는 것이 확인되었습니다. 이는 뒷단에 있는 layer일수록 전체적인 semantics보다는 이미지의 패턴이나 테두리, 색과 같은 디테일한 부분들에 대한 정보를 담고 있기 때문에 더 좋은 품질의 결과를 낸다고 해석할 수 있습니다.
+&nbsp;&nbsp;&nbsp;&nbsp;mGANprior를 구현하는 데 있어서 가장 중요한 요소는 바로 몇 개의 latent code를 사용할지입니다. 저자들은 실험을 통해 더 많은 latent code를 쓸 수록 계산량이 많아진다는 trade-off가 있지만, 그 수가 무한히 늘어난다고 해서 성능이 무한히 좋아지지는 않는다는 것을 보였습니다. 그들이 찾은 최적의 개수는 20개였고, 앞으로 소개할 모든 실험은 이를 기준으로 진행되었습니다.
+
+&nbsp;&nbsp;&nbsp;&nbsp;또한 generator에서 intermediate feature를 합칠 지점을 정하는 것도 중요한 사항입니다. 8개의 layer를 가진 PGGAN으로 실험한 결과, 더 뒤에 있는 layer를 선택할수록 더 좋은 결과가 나온다는 것이 확인되었습니다. 이는 뒷단에 있는 layer일수록 이미지의  이미지의 패턴이나 테두리, 색과 같은 디테일한 부분들에 대한 정보를 담고 있기 때문에 더 좋은 품질의 결과를 낸다고 해석할 수 있습니다.
 
 &nbsp;&nbsp;&nbsp;&nbsp;
