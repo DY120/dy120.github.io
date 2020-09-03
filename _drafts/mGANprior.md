@@ -49,7 +49,7 @@ comments: true
 
 $$z^* = \arg\min_{z \in \mathcal{Z}} \mathcal{L}(G(z), x)$$
 
-만약 $$\mathcal{L}(\cdot)$$을 단순한 pixel-wise loss라고 생각한다면 이 식을 푸는 것은 $$G$$에 입력됐을 때 $$x$$와 동일한 이미지가 나오는 latent code를 찾는 문제가 됩니다. 이름 그대로 이미지를 입력으로 받아 해당하는 latent code를 출력하는 GAN의 역변환이라고 볼 수 있는 것입니다. 이 과정이 제대로 이루어졌다면 역변환된 latent code를 생성 모델에 입력했을 때 원래의 이미지가 제대로 나와야 할 것입니다.
+만약 $$\mathcal{L}(\cdot)$$을 단순한 pixel-wise loss라고 생각한다면 이 식을 푸는 것은 $$G$$에 입력됐을 때 $$x$$와 최대한 동일한 이미지가 나오는 latent code를 찾는 문제가 됩니다. 이름 그대로 이미지를 입력으로 받아 해당하는 latent code를 출력하는 GAN의 역변환이라고 볼 수 있는 것입니다. 이 과정이 제대로 이루어졌다면 역변환된 latent code를 생성 모델에 입력했을 때 원래의 이미지가 제대로 나와야 할 것입니다.
 
 &nbsp;&nbsp;&nbsp;&nbsp;여기서 reconstruction loss를 다르게 정의함으로써 여러 가지 이미지 처리 문제에 적용시킬 수 있습니다. 예를 들어, 흑백 이미지를 컬러 이미지로 변환하는 image colorization 문제라면 다음과 같이 이미지의 휘도에 해당하는 채널(YCbCr 컬러 공간에서 Y 채널)만을 취해 흑백 이미지를 만드는 전처리 함수 $$\texttt{gray}(\cdot)$$를 써서 loss function을 새로 정의할 수 있습니다.
 
@@ -57,7 +57,7 @@ $$\mathcal{L}_{color} = \mathcal{L}(\texttt{gray}(G(z)), I_{gray})$$
 
 이를 이용한 back-propagation으로 latent code $$z$$를 최적화하는 것은 흑백으로 만들었을 때 입력 흑백 이미지와 동일하게 되는 이미지를 미리 학습된 생성 모델의 latent space에서 찾는 것과 같을 것입니다.
 
-&nbsp;&nbsp;&nbsp;&nbsp;이러한 방식으로 생성 모델을 이미지 처리에 활용하려는 연구가 여럿 있었지만, 앞서 설명했듯 좋은 성과를 내지는 못했습니다. 이 논문의 저자들은 그 이유를 기존 연구들이 단일 latent code만을 최적화하려고 했기 때문이라고 분석했습니다. 더 정확히 말하자면, 단일 latent code만을 다루게 되면 생성 모델의 latent space에 정답이 되는 이미지가 포함이 되지 않을 때 해당 이미지에 대한 완벽한 inversion이 존재하지 않게 되므로 정답을 아예 찾을 수 없는 것입니다.
+&nbsp;&nbsp;&nbsp;&nbsp;이러한 방식으로 생성 모델을 이미지 처리에 활용하려는 연구가 여럿 있었지만, 앞서 설명했듯 좋은 성과를 내지는 못했습니다. 이 논문의 저자들은 그 이유를 기존 연구들이 단일 latent code만을 최적화하려고 했기 때문이라고 분석했습니다. 더 정확히 말하자면, 단일 latent code만을 다루게 되면 생성 모델의 latent space에 정답이 되는 이미지가 포함이 되지 않을 때 해당 이미지에 대한 완벽한 inversion이 존재하지 않게 되므로 정답을 아예 찾을 수 없기 때문입니다.
 
 &nbsp;&nbsp;&nbsp;&nbsp;이 논문은 여러 개의 latent code를 이용한 새로운 GAN inversion을 제시하면서 다음과 같은 contribution을 가지고 있다고 주장합니다.
 - 여러 개의 latent code와 adaptive channel importance를 활용한 새로운 GAN inversion 방법인 mGANprior(multi-code GAN prior)를 제시함
@@ -79,13 +79,13 @@ $$G\left(\sum_{n=1}^N z_n\right) = \sum_{n=1}^N x_n$$
 
 하지만 실제로는 생성 모델의 latent space는 선형 공간이 아니기 때문에 이와 같은 단순한 정의는 불가능합니다. 따라서 이들을 합치는 다른 방법을 생각해야 합니다.
 
-&nbsp;&nbsp;&nbsp;&nbsp;최근 연구를 통해 GAN inversion에서 latent code 자체를 분석하는 것보다 generator의 중간 layer에서 feature를 분석하는 것이 더 효과적이라는 것이 알려졌습니다. 이를 채용하여 저자들은 입력으로 들어오는 latent code가 아니라 generator 네트워크에서의 intermediate feature map들을 합치는 방식을 채용하기로 했습니다. 
+&nbsp;&nbsp;&nbsp;&nbsp;최근에는 여러 연구를 통해 GAN inversion에서 latent code 자체를 분석하는 것보다 generator의 중간 layer에서 feature를 분석하는 것이 더 효과적이라는 것이 알려졌습니다. 이를 채용하여 저자들은 입력으로 들어오는 latent code가 아니라 generator 네트워크에서의 intermediate feature map들을 합치는 방식을 채용하기로 했습니다. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;먼저 $$G(\cdot)$$을 두 개의 sub-network $$G_1^{(\ell)}(\cdot)$$과 $$G_2^{(\ell)}(\cdot)$$으로 나누어야 합니다. Generator의 $$\ell$$번째까지의 layer들로 이루어진 $$G_1^{(\ell)}(\cdot)$$을 이용해 $$\ell$$번째 layer의 feature map을 다음과 같이 정의할 수 있습니다.
+&nbsp;&nbsp;&nbsp;&nbsp;먼저 $$G(\cdot)$$을 두 개의 sub-network $$G_1^{(\ell)}(\cdot)$$과 $$G_2^{(\ell)}(\cdot)$$으로 나누어야 합니다. Generator의 $$\ell$$번째까지의 layer들로 이루어진 $$G_1^{(\ell)}(\cdot)$$을 이용해 $$n$$번째 latent code를 입력했을 때 $$\ell$$번째 layer에서 얻을 수 있는 feature map을 다음과 같이 정의할 수 있습니다.
 
 $$F_n^{(\ell)} = G_1^{(\ell)}(z_n)$$
 
-여기에 학습 가능한 parameter $$\alpha_n \in \mathbb{R}^C$$를 이용해 다음과 같은 weighted sum을 구할 수 있습니다.
+여기에 학습 가능한 parameter $$\alpha_n \in \mathbb{R}^C$$를 이용해 다음과 같은 weighted sum을 구할 수 있을 것입니다.
 
 $$\sum_{n=1}^{N} F_n^{(\ell)} \odot \alpha_n$$
 
@@ -120,15 +120,28 @@ $$\mathcal{L}_{inp} = \mathcal{L} \left( x^{inv} \circ m, I_{ori} \circ m \right
 </center>
 <BR>
 
-&nbsp;&nbsp;&nbsp;&nbsp;본 논문에서는 PGGAN과 StyleGAN을 이용해 mGANprior를 구현하였으며, 얼굴을 위해 CelebA-HQ와 FFHQ 데이터셋이, 교회 및 침실 등의 사진을 위해서 LSUN 데이터셋이 사용되었습니다.
+&nbsp;&nbsp;&nbsp;&nbsp;본 논문에서는 PGGAN과 StyleGAN을 이용해 mGANprior를 구현하였으며, 얼굴을 위해 CelebA-HQ와 FFHQ 데이터셋이, 교회 및 침실 등의 사진을 위해서 LSUN 데이터셋이 사용되었다고 합니다. 이렇게 구현된 mGANprior는 단일 latent code를 최적화하거나 이미지를 입력으로 받는 별도의 encoder를 학습시키는 방식보다 훨씬 그럴싸하게 실제 이미지를 따라할 수 있었다고 합니다.
+
+<center>
+    <img src="../assets/img/mGANprior-4.png">
+</center>
+<BR>
+
+&nbsp;&nbsp;&nbsp;&nbsp;또한 수치상으로도 mGANprior가 기존 방식 대비 월등히 높은 PSNR과 낮은 LPIPS를 보여주는 것을 확인할 수 있었습니다. 이는 mGANprior를 통해 얻어낸 결과물이 훨씬 더 원본과 유사하면서 실제 사진인 것처럼 그럴싸해 보인다는 것을 의미합니다. 
 
 <center>
     <img src="../assets/img/mGANprior-3.png">
 </center>
 <BR>
 
-&nbsp;&nbsp;&nbsp;&nbsp;mGANprior를 구현하는 데 있어서 가장 중요한 요소는 바로 몇 개의 latent code를 사용할지입니다. 저자들은 실험을 통해 더 많은 latent code를 쓸 수록 계산량이 많아진다는 trade-off가 있지만, 그 수가 무한히 늘어난다고 해서 성능이 무한히 좋아지지는 않는다는 것을 보였습니다. 그들이 찾은 최적의 개수는 20개였고, 앞으로 소개할 모든 실험은 이를 기준으로 진행되었습니다.
+&nbsp;&nbsp;&nbsp;&nbsp;저자들은 또한 실험을 통해 mGANprior를 통해 만들어진 latent code를 분석했습니다. 우선 몇 개의 latent code를 사용하는 것이 가장 좋은지를 살펴봤습니다. 막연히 생각해보면 더 많은 latent code를 쓸 수록 계산량은 많아지지만 성능은 좋아질 것이라고 추측할 수 있을 것입니다. 하지만 실제로는 20개 이상의 latent code를 쓸 때부터는 유의미한 성능 향상이 없었다고 합니다.
 
-&nbsp;&nbsp;&nbsp;&nbsp;또한 generator에서 intermediate feature를 합칠 지점을 정하는 것도 중요한 사항입니다. 8개의 layer를 가진 PGGAN으로 실험한 결과, 더 뒤에 있는 layer를 선택할수록 더 좋은 결과가 나온다는 것이 확인되었습니다. 이는 뒷단에 있는 layer일수록 이미지의  이미지의 패턴이나 테두리, 색과 같은 디테일한 부분들에 대한 정보를 담고 있기 때문에 더 좋은 품질의 결과를 낸다고 해석할 수 있습니다.
+&nbsp;&nbsp;&nbsp;&nbsp;또한 generator에서 intermediate feature를 합칠 지점을 정하는 것도 중요한 사항입니다. 8개의 layer를 가진 PGGAN으로 실험한 결과, 더 뒤에 있는 layer를 선택할수록 더 좋은 결과가 나온다는 것이 확인되었습니다. 이는 뒷단에 있는 layer일수록 이미지의 패턴이나 테두리, 색과 같은 디테일한 부분들에 대한 정보를 담고 있기 때문에 더 좋은 품질의 결과를 낸다고 해석할 수 있습니다.
 
-&nbsp;&nbsp;&nbsp;&nbsp;
+<center>
+    <img src="../assets/img/mGANprior-5.png">
+</center>
+<BR>
+
+&nbsp;&nbsp;&nbsp;&nbsp;마찬가지로 각 latent code가 이미지의 어떤 부분들에 영향을 끼치는지도 중요합니다. 저자들은 먼저 adaptive channel importance $$\alpha_n$$에서 0.2보다 큰 값들을 모두 0으로 설정하여 $$\alpha_n'$$을 구했습니다. 이 때 $$\alpha_n$$과 $$\alpha_n'$$ 각각을 이용해 생성한 이미지의 차이를 계산해 difference map을 구하면 $$n$$번째 latent code에 의한 영향력이 사라지면서 이미지의 어느 부분이 가장 큰 영향을 받았는지를 확인할 수 있을 것입니다. 더 나아가 segmentation map과 해당 difference map를 비교했을 때 가장 IoU(Intersection-over-Union)가 높게 나오는 class를 찾으면 $$n$$번째 latent code가 어떤 class와 가장 깊은 연관이 있는지도 명확하게 찾을 수 있을 것입니다.
+
