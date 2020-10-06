@@ -12,14 +12,14 @@ comments: true
 </center>
 <BR>
 
-&nbsp;&nbsp;&nbsp;&nbsp;GAN(Generative Adversarial Networks)은 2014년에 발표된 이후 지금까지 많은 연구를 통해 눈부신 발전을 이루었습니다. 특히 무작위로 생성된 latent code로부터 가상의 이미지를 합성해내는 생성 모델 분야에 큰 영향을 끼쳤는데, 2020년 현재에 이르러서는 BigGAN이나 PGGAN, StyleGAN과 같은 모델을 통해 만들어진 고해상도의 이미지들은 심지어 사람의 눈으로도 가짜라는 걸 분간할 수 없을 만큼 고도화가 이루어졌습니다. 위의 사진은 BigGAN을 통해 생성된 $$512 \times 512$$ 크기의 가짜 이미지들인데, 이를 첫눈에 분간할 수 있는 사람은 많지 않을 것입니다.
+&nbsp;&nbsp;&nbsp;&nbsp;GAN(Generative Adversarial Networks)은 2014년에 발표된 이후 지금까지 많은 연구를 통해 눈부신 발전을 이루었습니다. 특히 무작위로 생성된 latent code로부터 가상의 이미지를 합성해내는 생성 모델 분야에 큰 영향을 끼쳤는데, 2020년 현재에 이르러서는 BigGAN이나 PGGAN, StyleGAN과 같은 모델을 통해 만들어진 고해상도의 이미지들은 심지어 사람의 눈으로도 가짜라는 걸 분간할 수 없을 만큼 고도화가 이루어졌습니다. 위의 사진은 BigGAN을 통해 생성된 $$512 \times 512$$ 크기의 이미지들인데, 이를 첫눈에 실제가 아니라고 분간할 수 있는 사람은 많지 않을 것입니다.
 
 <center>
     <img src="../assets/img/mGANprior-1.png">
 </center>
 <BR>
 
-&nbsp;&nbsp;&nbsp;&nbsp;GAN은 이와 같은 강력한 이미지 생성 능력을 기반으로 SISR(Single Image Super-Resolution), denoising, inpainting와 같은 여러 이미지 처리 분야에도 널리 쓰이고 있습니다. 하지만 대부분의 GAN을 이용한 이미지 처리 모델들은 해당 task에만 특화된 loss function과 네트워크 구조를 이용한다는 한계점이 있습니다. 물론 많은 task에 활용될 수 있는 pix2pix나 CycleGAN과 같은 image-to-image translation 모델들이 있긴 하지만, 이러한 모델들 역시 adversarial learning의 개념만 추가한 지도 학습을 진행한다는 한계가 있습니다. 다시 말해 GAN의 향만 첨가한 정도라는 것입니다. 그래서 image-to-image translation 모델들이 만드는 결과는 생성 모델이 만들어 내는 가상의 이미지만큼 높은 퀄리티를 가지지 못한다는 단점이 있습니다.
+&nbsp;&nbsp;&nbsp;&nbsp;GAN은 이와 같은 강력한 이미지 생성 능력을 기반으로 SISR(Single Image Super-Resolution), denoising, inpainting와 같은 여러 이미지 처리 분야에도 널리 쓰이고 있습니다. 하지만 대부분의 GAN을 이용한 이미지 처리 모델들은 해당 task에만 특화된 loss function과 네트워크 구조를 이용한다는 한계점이 있습니다. 물론 많은 task에 활용될 수 있는 pix2pix나 CycleGAN과 같은 image-to-image translation 모델들이 있긴 하지만, 이러한 모델들 역시 adversarial learning의 개념만 추가한 지도 학습을 진행한다는 한계가 있습니다. 다시 말해 GAN의 향만 첨가한 정도라는 것입니다. 그래서 image-to-image translation 모델들이 만드는 결과는 생성 모델이 만들어 내는 가상의 이미지만큼 높은 퀄리티를 가지지 못한다는 단점이 있었습니다.
 
 &nbsp;&nbsp;&nbsp;&nbsp;이러한 한계점을 극복하고자 최근에는 미리 학습된 BigGAN이나 StyleGAN과 같은 생성 모델을 이용해 GAN의 강력한 이미지 생성 능력을 활용함과 동시에 별도의 학습 또한 필요로 하지 않는 장점을 취하는 방법론을 주로 채용하는 추세입니다. [이전 포스트](https://dy120.github.io/PULSE)에서 살펴본 PULSE라는 모델 또한 이러한 아이디어를 채용하여 개발된 모델이라고 볼 수 있습니다. 
 
@@ -28,7 +28,7 @@ comments: true
 </center>
 <BR>
 
-&nbsp;&nbsp;&nbsp;&nbsp;원리를 간단하게 설명하자면, 원하는 이미지 처리 결과를 미리 학습된 생성 모델이 만들어 낼 수 있는 이미지의 범위, 즉 latent space 내에서 직접 찾아낸다는 것입니다. 예를 들어서 PULSE는 생성 모델이 만들어낼 수 있는 수없이 많은 얼굴 이미지들 중에서 downscaling을 해서 기존의 입력 이미지가 될 수 있는 이미지들을 back-propagation을 통한 latent code의 최적화를 통해 찾아냄으로써 face hallucination(얼굴에 대한 SISR)을 수행하게 됩니다.
+&nbsp;&nbsp;&nbsp;&nbsp;원리를 간단하게 짚고 넘어가자면, 원하는 이미지 처리 결과를 미리 학습된 생성 모델이 만들어 낼 수 있는 이미지의 범위, 즉 latent space 내에서 직접 찾아낸다는 것입니다. 예를 들어서 PULSE는 생성 모델이 만들어낼 수 있는 수없이 많은 얼굴 이미지들 중에서 downscaling을 해서 기존의 입력 이미지가 될 수 있는 이미지들을 찾아내는 방식으로 face hallucination(얼굴에 대한 SISR)을 수행합니다. 이 때 해당 이미지들을 찾는 건 입력 이미지와 동일한 해상도로 downscaling을 했을 때 입력 이미지와의 distance를 loss function으로 두고 이를 최소화하는 방향으로 back-propagation을 통해 latent vector를 최적화시키는 방식으로 진행됩니다.
 
 <!---
  PULSE는 입력된 저화질 이미지 $$I_{LR}$$과 downscaling 된 고화질 이미지 $$DS(G(z))$$ 사이의 pixel-wise loss $$\lVert DS(G(z)) - I_{LR} \rVert_p^p$$를 최소화시키는 latent code $$z$$를 back-propagation을 통해 얻어내 SISR을 수행하는 모델이었습니다. 
@@ -45,7 +45,7 @@ comments: true
 </center>
 <BR>
 
-&nbsp;&nbsp;&nbsp;&nbsp;우선 미리 학습된 생성 모델을 통해 이미지 처리 모델을 구현하려면 한 가지 추가적인 핵심적인 기술을 필요로 합니다. 바로 GAN inversion이라 불리는 기술입니다. 기존의 생성 모델에서 generator $$G$$가 무작위로 생성된 latent code $$z$$를 입력으로 받아 가상의 이미지 $$G(z)$$를 생성해 출력했다면, GAN inversion은 실제 이미지 $$x$$와 특정 reconstruction loss $$\mathcal{L}(\cdot)$$에 대해 다음 조건을 만족하는 latent code $$z^*$$를 출력합니다. 
+&nbsp;&nbsp;&nbsp;&nbsp;우선 미리 학습된 생성 모델을 통해 이미지 처리 모델을 구현하려면 한 가지 추가적인 핵심적인 기술을 필요로 합니다. 바로 GAN inversion이라 불리는 기술입니다. 기존의 생성 모델에서 generator $$G$$가 무작위로 생성된 latent code $$z$$를 입력으로 받아 가상의 이미지 $$G(z)$$를 생성해 출력했다면, GAN inversion은 실제 이미지 $$x$$와 특정 reconstruction loss $$\mathcal{L}(\cdot)$$에 대해 다음 조건을 만족하는 latent code $$z^*$$를 출력하는 것을 다룹니다. 
 
 $$z^* = \arg\min_{z \in \mathcal{Z}} \mathcal{L}(G(z), x)$$
 
@@ -59,7 +59,7 @@ $$\mathcal{L}_{color} = \mathcal{L}(\texttt{gray}(G(z)), I_{gray})$$
 
 &nbsp;&nbsp;&nbsp;&nbsp;이러한 방식으로 생성 모델을 이미지 처리에 활용하려는 연구가 여럿 있었지만, 앞서 설명했듯 좋은 성과를 내지는 못했습니다. 이 논문의 저자들은 그 이유를 기존 연구들이 단일 latent code만을 최적화하려고 했기 때문이라고 분석했습니다. 더 정확히 말하자면, 단일 latent code만을 다루게 되면 생성 모델의 latent space에 정답이 되는 이미지가 포함이 되지 않을 때 해당 이미지에 대한 완벽한 inversion이 존재하지 않게 되므로 정답을 아예 찾을 수 없기 때문입니다.
 
-&nbsp;&nbsp;&nbsp;&nbsp;이 논문은 여러 개의 latent code를 이용한 새로운 GAN inversion을 제시하면서 다음과 같은 contribution을 가지고 있다고 주장합니다.
+&nbsp;&nbsp;&nbsp;&nbsp;이 논문은 여러 개의 latent code를 이용한 새로운 GAN inversion을 제시하면서 다음과 같은 contribution을 주장했습니다.
 - 여러 개의 latent code와 adaptive channel importance를 활용한 새로운 GAN inversion 방법인 mGANprior(multi-code GAN prior)를 제시함
 - mGANprior를 image colorization, SISR, image inpainting 등 다양한 실제 이미지 처리 문제에 적용시킴
 - GAN generator의 각 layer에 있는 feature들을 결합하여 각각 다른 layer에서의 internal representation을 분석하는 방법을 제시함
@@ -143,5 +143,57 @@ $$\mathcal{L}_{inp} = \mathcal{L} \left( x^{inv} \circ m, I_{ori} \circ m \right
 </center>
 <BR>
 
-&nbsp;&nbsp;&nbsp;&nbsp;마찬가지로 각 latent code가 이미지의 어떤 부분들에 영향을 끼치는지도 중요합니다. 저자들은 먼저 adaptive channel importance $$\alpha_n$$에서 0.2보다 큰 값들을 모두 0으로 설정하여 $$\alpha_n'$$을 구했습니다. 이 때 $$\alpha_n$$과 $$\alpha_n'$$ 각각을 이용해 생성한 이미지의 차이를 계산해 difference map을 구하면 $$n$$번째 latent code에 의한 영향력이 사라지면서 이미지의 어느 부분이 가장 큰 영향을 받았는지를 확인할 수 있을 것입니다. 더 나아가 segmentation map과 해당 difference map를 비교했을 때 가장 IoU(Intersection-over-Union)가 높게 나오는 class를 찾으면 $$n$$번째 latent code가 어떤 class와 가장 깊은 연관이 있는지도 명확하게 찾을 수 있을 것입니다.
+&nbsp;&nbsp;&nbsp;&nbsp;마찬가지로 각 latent code가 이미지의 어떤 부분들에 영향을 끼치는지도 중요합니다. 저자들은 먼저 adaptive channel importance $$\alpha_n$$에서 0.2보다 큰 값들을 모두 0으로 설정하여 $$\alpha_n'$$을 구했습니다. 이 때 $$\alpha_n$$과 $$\alpha_n'$$ 각각을 이용해 이미지를 생성하고 그 차이를 계산해 difference map을 구하면 $$n$$번째 latent code에 의한 영향력이 사라지면서 이미지의 어느 부분이 가장 큰 영향을 받았는지를 확인할 수 있을 것입니다. 더 나아가 segmentation map과 해당 difference map를 비교했을 때 가장 IoU(Intersection-over-Union)가 높게 나오는 class를 찾으면 $$n$$번째 latent code가 어떤 class와 가장 깊은 연관이 있는지도 명확하게 찾을 수 있을 것입니다.
 
+<center>
+    <img src="../assets/img/mGANprior-6.png">
+    <img src="../assets/img/mGANprior-7.png">
+</center>
+<BR>
+
+&nbsp;&nbsp;&nbsp;&nbsp;이제 본격적으로 mGANprior를 여러 가지 이미지 처리에 적용했을 때 어떤 결과가 나오는지 살펴봅시다. 우선 image colorization에 대한 결과입니다. 기존에 쓰이던 방식들과 비교했을 때 정량적으로나 정성적으로나 mGANprior를 사용하여 색을 입힌 것이 더 좋은 결과를 냈다는 것을 확인할 수 있었습니다. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;특히 image colorization에 특화된 모델인 (c)와 비교하자면, mGANprior는 GAN의 풍부한 표현력 덕분에 하나의 범주에서만 보자면 더 좋은 성능을 보입니다. 그와 동시에 일반적으로 모든 종류의 이미지에 적용할 수 있는 (c)와는 다르게 한정된 범위 내에서만 적용이 가능하다는 한계도 존재합니다. 만약 더 거대한 네트워크와 더 다양한 데이터셋을 쓴다면 이에 대한 generalization ability를 보다 향상시킬 수 있을 것이라고 생각됩니다.
+
+<center>
+    <img src="../assets/img/mGANprior-8.png">
+    <img src="../assets/img/mGANprior-9.png">
+</center>
+<BR>
+
+&nbsp;&nbsp;&nbsp;&nbsp;SISR에 대해서는 PULSE에서 그랬던 것처럼 사람의 얼굴 이미지에 대해 결과를 비교했습니다. GAN 기반의 방식이다보니 pixel-wise loss 기반의 방식인 RCAN보다 PSNR이 떨어지는 것은 어쩔 수 없다고 하면, 모든 면에서 좋은 결과를 보여줬습니다. 개인적으로는 PULSE와 비교했을 때 어느 쪽이 더 나을지도 궁금합니다.
+
+<center>
+    <img src="../assets/img/mGANprior-10.png">
+    <img src="../assets/img/mGANprior-11.png">
+</center>
+<BR>
+
+&nbsp;&nbsp;&nbsp;&nbsp;마지막으로 image inpainting과 denoising에 대한 결과입니다. 표에서 center crop은 가운데의 $$64 \times 64$$ 영역을, random crop은 전체에서 80%만큼 임의의 pixel을 지웠을 때의 결과를 나타냅니다. 마찬가지로 기존의 방식들을 정량적으로나 정성적으로나 압도하는 결과가 나온 걸 확인할 수 있었습니다.
+
+<center>
+    <img src="../assets/img/mGANprior-12.png">
+</center>
+<BR>
+
+&nbsp;&nbsp;&nbsp;&nbsp;지금까지는 이전부터 활발하게 연구되어 온 low-level 이미지 처리 task에 대해 살펴봤습니다. 여기서 저자들은 semantic manipulation와 같은 high-level task에 대해서도 mGANprior가 좋은 성능을 낸다고 주장합니다. 이들은 mGANprior를 통해 입력 이미지로부터 inversion 된 latent code를 얻은 뒤 이를 [InterFaceGAN](https://openaccess.thecvf.com/content_CVPR_2020/papers/Shen_Interpreting_the_Latent_Space_of_GANs_for_Semantic_Face_Editing_CVPR_2020_paper.pdf)을 활용해 조절하여 이미지 속 얼굴의 표정이나 성별, 나이, 포즈를 바꿔보는 실험을 진행했습니다. 비교 대상은 없지만, 마찬가지로 상당히 훌륭한 결과가 나온다는 것은 확인할 수 있었습니다.
+
+<center>
+    <img src="../assets/img/mGANprior-13.png">
+</center>
+<BR>
+
+&nbsp;&nbsp;&nbsp;&nbsp;여러 실험들을 통해서 GAN 기반의 생성 모델을 활용한 이미지 처리가 효과적인 성능을 보인다는 것을 알게 되었지만, 여전히 명백한 한계는 존재합니다. 바로 생성 모델을 학습시키는 데 썼던 데이터셋의 domain에 포함되지 않는 이미지에 대해서는 제 성능을 발휘할 수 없다는 점입니다. 가령 CelebA-HQ라는 고화질의 얼굴 이미지들로 이루어진 데이터셋으로 학습된 생성 모델이라면 침실 이미지로부터 GAN inversion을 통해 제대로 된 latent code를 뽑아내는 것은 불가능할 것입니다.
+
+&nbsp;&nbsp;&nbsp;&nbsp;그런데 mGANprior를 활용하면 이러한 한계마저 어느 정도 극복할 수 있다고 합니다. 위의 그림은 사람 얼굴, 교회, 회의실, 침실 이미지로만 이루어진 데이터셋으로 학습시킨 각각의 생성모델을 활용하여 침실 이미지를 GAN inversion 시켰을 때의 reconstruction 결과입니다. 우선 단일 latent code를 사용했을 때는 앞서 말했듯이 전혀 다른 이미지를 생성해내는 것을 확인할 수 있었습니다. 심지어 침실로 이루어진 데이터셋으로 학습했을 경우에도 말입니다. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;반면 mGANprior를 사용했을 때는 어떠한 데이터셋으로 학습하였던 꽤나 그럴싸한 결과가 나왔습니다. 거기다가 앞선 실험에서 확인했듯 generator에서 intermediate feature map을 합치는 지점을 뒤쪽 layer로 잡을 수록 더 좋은 결과가 나온다는 것도 확인할 수 있었는데, 마지막 layer를 그 지점으로 잡았을 때는 어떠한 데이터셋에 대해서도 거의 원본과 유사하게 reconstruction이 가능했을 정도입니다. 
+
+<center>
+    <img src="../assets/img/mGANprior-14.png">
+</center>
+<BR>
+
+&nbsp;&nbsp;&nbsp;&nbsp;한편 colorization과 inpainting에 대해 같은 방식으로 실험을 진행하면 다음과 같은 결과가 나옵니다. Colorization의 경우에는 GAN inversion과 마찬가지로 더 깊은 지점에서 intermediate feature map을 합칠 수록 좋은 결과가 나왔지만, inpainting의 경우에는 중간 지점에서 합치는 게 더 좋은 것을 확인할 수 있습니다. 이에 대해 저자들은 colorization의 경우는 이미지에 포함된 의미론적인 정보보다는 단순한 pixel value에 초점을 두기 때문에 이를 다루기 위해 상대적으로 깊은 layer에서 추출한 feature map을 합치는 것이, inpainting의 경우는 빈 공간을 채우기 위해서 의미론적인 정보가 필요하기 때문에 상대적으로 얕은 layer에서 추출한 feature map을 합치는 것이 좋기 때문이라고 분석했습니다.
+
+# Conclusion
