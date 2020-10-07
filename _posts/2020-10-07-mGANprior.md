@@ -106,7 +106,7 @@ $$\mathcal{L}_{SR} = \mathcal{L} \left( \texttt{down}(x^{inv}), I_{LR} \right)$$
 
 $$\mathcal{L}_{inp} = \mathcal{L} \left( x^{inv} \circ m, I_{ori} \circ m \right)$$
 
-차례대로 $$\texttt{gray}(\cdot)$$은 앞서 설명한 휘도 채널 추출, $$\texttt{down}(\cdot)$$은 입력 이미지와 동일한 해상도로 downscaling, 그리고 $$m$$은 가려진 픽셀 위치를 0, 나머지를 1로 채운 binary mask를 의미하고 $$I_{gray}, I_{LR}, I_{ori}$$는 입력 이미지를 가리킵니다.
+차례대로 $$\texttt{gray}(\cdot)$$는 앞서 설명한 휘도 채널 추출, $$\texttt{down}(\cdot)$$은 입력 이미지와 동일한 해상도로 downscaling, 그리고 $$m$$은 가려진 픽셀 위치를 0, 나머지를 1로 채운 binary mask를 의미하고 $$I_{gray}, I_{LR}, I_{ori}$$는 입력 이미지를 가리킵니다.
 
 # Experiments (GAN inversion)
 
@@ -140,7 +140,7 @@ $$\mathcal{L}_{inp} = \mathcal{L} \left( x^{inv} \circ m, I_{ori} \circ m \right
 
 &nbsp;&nbsp;&nbsp;&nbsp;마찬가지로 각 latent code가 이미지의 어떤 부분들에 영향을 끼치는지도 중요합니다. 저자들은 먼저 adaptive channel importance $$\alpha_n$$에서 0.2보다 큰 값들을 모두 0으로 설정하여 $$\alpha_n'$$을 구했습니다. 이 때 $$\alpha_n$$과 $$\alpha_n'$$ 각각을 이용해 이미지를 생성하고 그 차이를 계산해 difference map을 구하면 $$n$$번째 latent code에 의한 영향력이 사라지면서 이미지의 어느 부분이 가장 큰 영향을 받았는지를 확인할 수 있을 것입니다. 더 나아가 segmentation map과 해당 difference map를 비교했을 때 가장 IoU(Intersection-over-Union)가 높게 나오는 class를 찾으면 $$n$$번째 latent code가 어떤 class와 가장 깊은 연관이 있는지도 명확하게 찾을 수 있을 것입니다.
 
-# Experiments (Image Processing)
+# Experiments (Image processing)
 
 <center>
     <img src="../assets/img/mGANprior-6.png">
