@@ -90,7 +90,7 @@ $$x^{inv} = G_2^{(\ell)} \left(\sum_{n=1}^{N} F_n^{(\ell)} \odot \alpha_n\right)
 
 &nbsp;&nbsp;&nbsp;&nbsp;이제 우리가 풀어야 할 문제를 다음과 같은 식으로 표현할 수 있습니다.
 
-$$\{ z_n^* \}_{n=1}^N,\{ \alpha_n^* \}_{n=1}^N = \argmin_{\{ z_n \}_{n=1}^N,\{ \alpha_n \}_{n=1}^N} \mathcal{L}(x^{inv}, x)$$
+$$\{ z_n^* \}_{n=1}^N,\{ \alpha_n^* \}_{n=1}^N = \underset{\{ z_n \}_{n=1}^N,\{ \alpha_n \}_{n=1}^N}{\operatorname{arg min}}\mathcal{L}(x^{inv}, x)$$
 
 저자들은 GAN inversion을 위한 reconstruction loss $$\mathcal{L}$$을 다음과 같이 pixel-wise error와 perceptual error의 합으로 정의했습니다.
 
