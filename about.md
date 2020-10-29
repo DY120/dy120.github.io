@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Hi. My name is **Daeyoung Han**, a Ph.D candidate student at the [School of Electrical Engineering and Computer Science](https://eecs.gist.ac.kr/eecs/), [GIST](https://www.gist.ac.kr/kr/main.html). I'm studying computer vision and machine learning at [Machine Learning and Vision Lab](https://sites.google.com/view/mlv/), under the supervision of Prof. [Moongu Jeon](https://sites.google.com/view/mlv/people/professor).
+Hi. My name is **Daeyoung Han**, a Ph.D student at the [School of Electrical Engineering and Computer Science](https://eecs.gist.ac.kr/eecs/), [GIST](https://www.gist.ac.kr/kr/main.html). I'm studying computer vision and machine learning at [Machine Learning and Vision Lab](https://sites.google.com/view/mlv/), under the supervision of Prof. [Moongu Jeon](https://sites.google.com/view/mlv/people/professor).
 
 # Research Interests
 - **Computer vision**
