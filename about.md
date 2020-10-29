@@ -11,7 +11,7 @@ Hi. My name is **Daeyoung Han**, a Ph.D candidate student at the [School of Elec
 - **Machine learning**
 
 # Educations
-- **Ph.D candidate** at the [School of Electrical Engineering and Computer Science](https://eecs.gist.ac.kr/eecs/), [Gwangju Institute of Science and Technology](https://www.gist.ac.kr/kr/main.html), Gwangju, Korea  
+- **Ph.D student** at the [School of Electrical Engineering and Computer Science](https://eecs.gist.ac.kr/eecs/), [Gwangju Institute of Science and Technology](https://www.gist.ac.kr/kr/main.html), Gwangju, Korea  
   - Sep.2019 - present
 - **B.S.** at the [School of Electrical & Electorinc Engineering](http://ee.yonsei.ac.kr/ee_en/index.do), [Yonsei University](https://www.yonsei.ac.kr/en_sc/), Seoul, Korea  
   - Mar.2013 - Aug.2019
