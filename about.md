@@ -25,5 +25,5 @@ Hi. My name is **Daeyoung Han**, a Ph.D candidate student at the [School of Elec
 # Contacts
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d475.2281806543489!2d126.84135291225219!3d35.229079355367695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDEzJzQ1LjAiTiAxMjbCsDUwJzI5LjkiRQ!5e0!3m2!1sko!2skr!4v1591707300295!5m2!1sko!2skr" width="640" height="360" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>  
 
-- Machine Learning and Vision Lab, Room 302, EECS Building C, Gwangju Institute of Science and Technology (GIST), 123, Cheomdangwagi-ro, Buk-gu, Gwangju, Korea
+- Machine Learning and Vision Lab, Room 305, EECS Building C, Gwangju Institute of Science and Technology (GIST), 123, Cheomdangwagi-ro, Buk-gu, Gwangju, Korea
 
