@@ -144,7 +144,7 @@ $$\mathcal{L}_{inp} = \mathcal{L} \left( x^{inv} \circ m, I_{ori} \circ m \right
 
 <center>
     <img src="../assets/img/mGANprior-6.png">
-    <img src="../assets/img/mGANprior-7.png">
+    <img src="../assets/img/mGANprior-7.png" width="400">
 </center>
 <BR>
 
@@ -154,7 +154,7 @@ $$\mathcal{L}_{inp} = \mathcal{L} \left( x^{inv} \circ m, I_{ori} \circ m \right
 
 <center>
     <img src="../assets/img/mGANprior-8.png">
-    <img src="../assets/img/mGANprior-9.png">
+    <img src="../assets/img/mGANprior-9.png" width="400">
 </center>
 <BR>
 
@@ -162,7 +162,7 @@ $$\mathcal{L}_{inp} = \mathcal{L} \left( x^{inv} \circ m, I_{ori} \circ m \right
 
 <center>
     <img src="../assets/img/mGANprior-10.png">
-    <img src="../assets/img/mGANprior-11.png">
+    <img src="../assets/img/mGANprior-11.png" width="400">
 </center>
 <BR>
 
