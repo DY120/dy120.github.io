@@ -118,7 +118,7 @@ $$\mathcal{L}_{inp} = \mathcal{L} \left( x^{inv} \circ m, I_{ori} \circ m \right
 &nbsp;&nbsp;&nbsp;&nbsp;본 논문에서는 PGGAN과 StyleGAN을 이용해 mGANprior를 구현하였으며, 얼굴을 위해 CelebA-HQ와 FFHQ 데이터셋이, 교회 및 침실 등의 사진을 위해서 LSUN 데이터셋이 사용되었다고 합니다. 이렇게 구현된 mGANprior는 단일 latent code를 최적화하거나 이미지를 입력으로 받는 별도의 encoder를 학습시키는 방식보다 훨씬 그럴싸하게 실제 이미지를 따라할 수 있었다고 합니다.
 
 <center>
-    <img src="../assets/img/mGANprior-4.png">
+    <img src="../assets/img/mGANprior-4.png" width="500">
 </center>
 <BR>
 
@@ -144,7 +144,7 @@ $$\mathcal{L}_{inp} = \mathcal{L} \left( x^{inv} \circ m, I_{ori} \circ m \right
 
 <center>
     <img src="../assets/img/mGANprior-6.png">
-    <img src="../assets/img/mGANprior-7.png" width="400">
+    <img src="../assets/img/mGANprior-7.png" width="500">
 </center>
 <BR>
 
@@ -154,7 +154,7 @@ $$\mathcal{L}_{inp} = \mathcal{L} \left( x^{inv} \circ m, I_{ori} \circ m \right
 
 <center>
     <img src="../assets/img/mGANprior-8.png">
-    <img src="../assets/img/mGANprior-9.png" width="400">
+    <img src="../assets/img/mGANprior-9.png" width="500">
 </center>
 <BR>
 
@@ -162,7 +162,7 @@ $$\mathcal{L}_{inp} = \mathcal{L} \left( x^{inv} \circ m, I_{ori} \circ m \right
 
 <center>
     <img src="../assets/img/mGANprior-10.png">
-    <img src="../assets/img/mGANprior-11.png" width="400">
+    <img src="../assets/img/mGANprior-11.png" width="500">
 </center>
 <BR>
 
